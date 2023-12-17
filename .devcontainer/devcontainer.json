@@ -25,6 +25,7 @@
 		"vscode": {
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
+				"ms-dotnettools.vscode-dotnet-runtime",
 				"ms-dotnettools.csharp",
 				"ms-dotnettools.csdevkit"
 			]
@@ -35,10 +36,6 @@
 		5000,
 		5001
 	],
-	"hostRequirements": {
-        "memory": "16gb",
-        "cpus": 8
-    },
 	"remoteEnv": {
 	"DOTNET_MULTILEVEL_LOOKUP": "0",
 	"TARGET": "net8.0"
