@@ -31,7 +31,18 @@
 		}
 	},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [5000, 5001],
+	"forwardPorts": [
+		5000,
+		5001
+	],
+	"hostRequirements": {
+        "memory": "16gb",
+        "cpus": 8
+    },
+	"remoteEnv": {
+	"DOTNET_MULTILEVEL_LOOKUP": "0",
+	"TARGET": "net8.0"
+    },
 	// [Optional] To reuse of your local HTTPS dev cert:
 	//
 	// 1. Export it locally using this command:
