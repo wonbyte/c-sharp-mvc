@@ -1,34 +1,27 @@
 var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+
 var app = builder.Build();
 
-app.Urls.Add("http://localhost:5000");
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
+}
 
-app.MapGet("/", () => "Hello World!");
+//app.UseHttpsRedirection();
+app.UseStaticFiles();
 
-app.MapGet("/{cityName}/weather", GetWeatherByCity);
+app.UseRouting();
+
+app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
-
-
-Weather GetWeatherByCity(string cityName)
-{
-    app.Logger.LogInformation($"Weather requested for {cityName}.");
-    var weather = new Weather(cityName);
-    return weather;
-}
-
-public record Weather
-{
-    public string City { get; set; }
-
-    public Weather(string city)
-    {
-        City = city;
-        Conditions = "Cloudy";
-        // Temperature here is in celsius degrees, hence the 0-40 range.
-        Temperature = new Random().Next(0,40).ToString();
-    }
-
-    public string Conditions { get; set; }
-    public string Temperature { get; set; }
-}
